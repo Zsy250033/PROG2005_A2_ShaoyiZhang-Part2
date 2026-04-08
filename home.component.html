@@ -1,0 +1,14 @@
+<h2>Home - Inventory Management System</h2>
+<p>Welcome to the Inventory Management System, developed by Shaoyi Zhang.</p>
+
+<h3>Popular Items</h3>
+<div *ngIf="popularItems.length > 0; else noPopular">
+  <ul>
+    <li *ngFor="let item of popularItems">
+      {{ item.itemName }} ({{ item.category }}) - ${{ item.price }}
+    </li>
+  </ul>
+</div>
+<ng-template #noPopular>
+  <p>No popular items added yet. Go to Manage Inventory to add items!</p>
+</ng-template>

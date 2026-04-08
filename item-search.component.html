@@ -1,0 +1,70 @@
+<h2>Search Inventory Items</h2>
+
+<div class="search-container">
+  <input [(ngModel)]="searchTerm" type="text" placeholder="Search by item name..." />
+  <button (click)="searchItems()" class="btn-search">Search</button>
+</div>
+
+<div *ngIf="searchResults.length > 0; else noResults">
+  <h3>Search Results</h3>
+  <table class="results-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Supplier</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of searchResults">
+        <td>{{ item.itemName }}</td>
+        <td>{{ item.category }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>${{ item.price }}</td>
+        <td>{{ item.supplierName }}</td>
+        <td>{{ item.stockStatus }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #noResults>
+  <p *ngIf="searchTerm">No items found matching "{{ searchTerm }}".</p>
+  <p *ngIf="!searchTerm">Enter a search term above to find items.</p>
+</ng-template>
+
+<style>
+  .search-container {
+    margin-bottom: 2rem;
+  }
+  .search-container input {
+    width: 300px;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 1rem;
+  }
+  .btn-search {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .results-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  .results-table th, .results-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+</style>

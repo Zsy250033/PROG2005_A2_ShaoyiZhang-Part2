@@ -1,0 +1,143 @@
+<h2>Manage Inventory</h2>
+<p *ngIf="message" class="message">{{ message }}</p>
+
+<!-- Add New Item Form -->
+<div class="form-container">
+  <h3>Add New Item</h3>
+  <div class="form-group">
+    <label>Item ID:</label>
+    <input [(ngModel)]="newItem.itemId" type="text" placeholder="Enter ID" />
+  </div>
+  <div class="form-group">
+    <label>Item Name:</label>
+    <input [(ngModel)]="newItem.itemName" type="text" placeholder="Enter Name" />
+  </div>
+  <div class="form-group">
+    <label>Category:</label>
+    <input [(ngModel)]="newItem.category" type="text" placeholder="Enter Category" />
+  </div>
+  <div class="form-group">
+    <label>Quantity:</label>
+    <input [(ngModel)]="newItem.quantity" type="number" placeholder="Enter Quantity" />
+  </div>
+  <div class="form-group">
+    <label>Price:</label>
+    <input [(ngModel)]="newItem.price" type="number" placeholder="Enter Price" />
+  </div>
+  <div class="form-group">
+    <label>Supplier:</label>
+    <input [(ngModel)]="newItem.supplierName" type="text" placeholder="Enter Supplier" />
+  </div>
+  <div class="form-group">
+    <label>Stock Status:</label>
+    <select [(ngModel)]="newItem.stockStatus">
+      <option value="In Stock">In Stock</option>
+      <option value="Low Stock">Low Stock</option>
+      <option value="Out of Stock">Out of Stock</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Popular Item:</label>
+    <select [(ngModel)]="newItem.popularItem">
+      <option value="No">No</option>
+      <option value="Yes">Yes</option>
+    </select>
+  </div>
+  <button (click)="addItem()" class="btn-add">Add Item</button>
+</div>
+
+<!-- Inventory List -->
+<h3>Current Inventory</h3>
+<div *ngIf="inventory.length > 0; else noItems">
+  <table class="inventory-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Supplier</th>
+        <th>Status</th>
+        <th>Popular</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of inventory">
+        <td>{{ item.itemId }}</td>
+        <td>{{ item.itemName }}</td>
+        <td>{{ item.category }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>${{ item.price }}</td>
+        <td>{{ item.supplierName }}</td>
+        <td>{{ item.stockStatus }}</td>
+        <td>{{ item.popularItem }}</td>
+        <td><button (click)="deleteItem(item.itemName)" class="btn-delete">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<ng-template #noItems>
+  <p>No items in inventory. Add your first item above!</p>
+</ng-template>
+
+<style>
+  .form-container {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+  }
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  .form-group input, .form-group select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  .btn-add {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .btn-delete {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .inventory-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  .inventory-table th, .inventory-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  .message {
+    padding: 1rem;
+    background: #d4edda;
+    color: #155724;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+</style>
